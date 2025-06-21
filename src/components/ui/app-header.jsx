@@ -14,7 +14,6 @@ export function Header() {
     const router = useRouter()
 
     const handleLogout = () => {
-        alert('1')
         // Optional: clear cookies, localStorage, or make logout API call here
         router.push("/auth/login")
     }
@@ -70,7 +69,6 @@ export function Header() {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-
         </header>
     )
 }
