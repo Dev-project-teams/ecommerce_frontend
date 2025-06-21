@@ -1,14 +1,14 @@
-import { ModeToggle } from "@/components/app-theme-toggler";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+
+"use client"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
-  return (
-    <>
-      <Button>
-        TeST
-      </Button>
-      <ModeToggle />
-    </>
-  );
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push("/dashboard")
+  }, [router])
+
+  return null 
 }
