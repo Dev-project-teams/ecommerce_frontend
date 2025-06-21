@@ -29,9 +29,11 @@ export default function LoginForm({ className, ...props }) {
           </div>
           <Input id="password" type="password" required />
         </div>
-        <Button type="submit" className="w-full">
-          Login
-        </Button>
+        <Link href="/dashboard" className="underline underline-offset-4">
+          <Button type="submit" className="w-full" >
+            Login
+          </Button>
+        </Link>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
