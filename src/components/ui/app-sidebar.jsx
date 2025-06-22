@@ -25,6 +25,7 @@ import {
   Ribbon,
   IdCard,
   Package,
+  ShoppingBasket,
 } from "lucide-react"
 
 const sidebarItems = [
@@ -68,7 +69,7 @@ const sidebarItems = [
   },
   {
     label: "Orders",
-    icon: <Database size={18} />,
+    icon: <ShoppingBasket size={18} />,
     children: [
       { label: "Lists", href: "/orders/lists" },
     ],
@@ -135,7 +136,7 @@ export function Sidebar() {
     )
 
     return (
-      <div key={item.label}>
+      <div key={item.label} >
         <div
           className={clsx(
             "flex items-center w-full",
@@ -196,8 +197,8 @@ export function Sidebar() {
   }
 
   return (
-    <div className={`flex h-screen ${collapsed ? "w-16" : "w-64"} transition-all duration-300`}>
-      <div className="flex flex-col bg-muted h-full w-full border-r py-4">
+    <div className={`flex h-screen ${collapsed ? "w-16" : "w-64"}  border-r transition-all duration-300`}>
+      <div className="flex flex-col bg-background h-full w-full py-4">
         {!collapsed && <div className="px-4 pb-2 font-bold text-lg">LOGO</div>}
         <nav className="flex flex-col px-2 space-y-1">
           {sidebarItems.map((item) => renderItem(item))}
