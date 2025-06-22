@@ -197,8 +197,8 @@ export function Sidebar() {
   }
 
   return (
-    <div className={`flex h-screen ${collapsed ? "w-16" : "w-64"}  border-r transition-all duration-300`}>
-      <div className="flex flex-col bg-background h-full w-full py-4">
+    <div className={`flex bg-background ${collapsed ? "w-16" : "w-64"}  border-r transition-all duration-300`}>
+      <div className="flex flex-col  h-full w-full py-4 ">
         {!collapsed && <div className="px-4 pb-2 font-bold text-lg">LOGO</div>}
         <nav className="flex flex-col px-2 space-y-1">
           {sidebarItems.map((item) => renderItem(item))}

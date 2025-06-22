@@ -5,7 +5,7 @@ import { Header } from "@/components/ui/app-header";
 export default function DashboardLayout({ children }) {
   return (
     <SidebarProvider>
-      <div className="flex h-screen">
+      <div className="flex min-h-[100vh]">
         <Sidebar />
         <div className="flex flex-col flex-1">
           <Header />
