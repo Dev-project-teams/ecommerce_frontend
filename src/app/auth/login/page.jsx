@@ -3,9 +3,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 
-
-
-
 export default function LoginForm({ className, ...props }) {
   return (
     <form className={`flex w-100 flex-col gap-6 ${className}`}>

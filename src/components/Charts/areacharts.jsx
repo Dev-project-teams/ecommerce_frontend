@@ -38,7 +38,7 @@ const chartConfig = {
     color: "var(--chart-2)",
   },
 }
-
+// https://techzaa.in/larkon/admin/index.html
 export function ChartAreaGradient() {
   return (
     <Card >
