@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSidebar } from "../sidebar-context"
@@ -18,8 +18,7 @@ import {
   ChevronRight,
   LayoutDashboard,
   Settings,
-  Database,
-  BookOpen,
+
   Shirt,
   Clipboard,
   Ribbon,
@@ -27,6 +26,7 @@ import {
   Package,
   ShoppingBasket,
 } from "lucide-react"
+import { useBreadcrumb } from "../breadcrumb-context"
 
 const sidebarItems = [
   {
@@ -54,18 +54,10 @@ const sidebarItems = [
   {
     label: "Categories",
     icon: <Clipboard size={18} />,
-       children: [
-           { label: "Lists", href: "/category/lists" },
-           { label: "Create", href: "/category/create" },
-        ],
-  },
-  {
-    label: "Brands",
-    icon: <Ribbon size={18} />,
-       children: [
-           { label: "Lists", href: "/brands/lists" },
-           { label: "Create", href: "/brands/create" },
-        ],
+    children: [
+      { label: "Lists", href: "/category/lists" },
+      { label: "Create", href: "/category/create" },
+    ],
   },
   {
     label: "Orders",
@@ -100,10 +92,29 @@ const sidebarItems = [
 
 ]
 
+export function findBreadcrumbTrail(items, pathname, parents = []) {
+  for (const item of items) {
+    const currentPath = [...parents, { label: item.label, href: item.href }]
+
+    if (item.href === pathname) {
+      return currentPath
+    }
+
+    if (item.children) {
+      const result = findBreadcrumbTrail(item.children, pathname, currentPath)
+      if (result) return result
+    }
+  }
+
+  return null
+}
+
+
 export function Sidebar() {
   const { collapsed } = useSidebar()
   const pathname = usePathname()
   const [openGroups, setOpenGroups] = useState({})
+  const { setItems } = useBreadcrumb()
 
   const toggleGroup = (label) => {
     setOpenGroups((prev) => ({
@@ -111,6 +122,13 @@ export function Sidebar() {
       [label]: !prev[label],
     }))
   }
+
+  useEffect(() => {
+    const breadcrumb = findBreadcrumbTrail(sidebarItems, pathname)
+    if (breadcrumb) setItems(breadcrumb)
+    else setItems([{ label: "Home", href: "/" }])
+  }, [pathname])
+
 
   const renderItem = (item, depth = 0) => {
     const isActive = item.href && (pathname === item.href || pathname.startsWith(item.href + "/"))

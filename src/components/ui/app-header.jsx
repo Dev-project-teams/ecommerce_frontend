@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
+import Breadcrumb from "./app-breadcrumb"
 
 export function Header() {
     const { collapsed, toggleSidebar } = useSidebar()
@@ -20,9 +21,13 @@ export function Header() {
 
     return (
         <header className="flex items-center justify-between px-4 py-2 border-b bg-background">
-            <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-                {collapsed ? <Menu size={20} /> : <ChevronLeft size={20} />}
-            </Button>
+            <div className="flex items-center gap-3">
+                <Button variant="ghost" size="icon" onClick={toggleSidebar}>
+                    {collapsed ? <Menu size={20} /> : <Menu size={20} />}
+                </Button>
+
+                <Breadcrumb />
+            </div>
 
 
 
