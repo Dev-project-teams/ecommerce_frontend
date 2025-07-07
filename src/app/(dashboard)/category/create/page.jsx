@@ -124,7 +124,7 @@ export default function CreateCategory() {
                                                 variant="destructive"
                                                 onClick={() => removeVariant(variant.id)}
                                                 className=""
-                                            >
+                                             >
                                                 Remove Variant
                                             </Button>
                                         </div>

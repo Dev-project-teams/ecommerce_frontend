@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/command"
 
 
-export default function GroupedSelect({ groupedOptions = [] }) {
+export default function GroupedSelect({ groupedOptions = [], handleSelectChange = () => { } }) {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState(null)
 
@@ -57,10 +57,10 @@ export default function GroupedSelect({ groupedOptions = [] }) {
                                 <CommandItem
                                     key={item.value}
                                     onSelect={() => {
+                                        handleSelectChange(item)
                                         setSelected(item.value)
                                         setOpen(false)
-                                    }}
-                                >
+                                    }}>
                                     {item.label}
                                     <Check
                                         className={cn(
