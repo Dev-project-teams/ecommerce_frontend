@@ -1,18 +1,42 @@
-// components/ui/pagination.jsx
 "use client";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 
-export default function Pagination({ perPage, handlePerPageChange, pageCount, page, setPage = () => { } }) {
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./select";
+
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+
+export default function Pagination({
+  page,
+  pageCount,
+  perPage = 5,
+  onPageChange,
+  onPerPageChange,
+}) {
+
+  const goToPage = (newPage) => {
+    if (onPageChange && newPage !== page) {
+      onPageChange(newPage);
+    }
+  };
+
   return (
-    < div className="flex items-center justify-between px-2 py-4" >
+    <div className="flex items-center justify-between px-2 py-4">
       <div className="flex items-center gap-2">
         <span className="text-sm">Rows per page</span>
         <Select
           value={perPage.toString()}
-          onValueChange={handlePerPageChange}
-        >
+          onValueChange={(val) => onPerPageChange?.(Number(val))}>
           <SelectTrigger className="h-8 w-[80px]">
             <SelectValue />
           </SelectTrigger>
@@ -31,40 +55,20 @@ export default function Pagination({ perPage, handlePerPageChange, pageCount, pa
           Page {page} of {pageCount}
         </span>
         <div className="flex items-center space-x-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setPage(1)}
-            disabled={page === 1}
-          >
+          <Button variant="ghost" size="icon" onClick={() => goToPage(1)} disabled={page === 1}>
             <ChevronsLeft className="w-4 h-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setPage((p) => Math.max(p - 1, 1))}
-            disabled={page === 1}
-          >
+          <Button variant="ghost" size="icon" onClick={() => goToPage(page - 1)} disabled={page === 1}>
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setPage((p) => Math.min(p + 1, pageCount))}
-            disabled={page === pageCount}
-          >
+          <Button variant="ghost" size="icon" onClick={() => goToPage(page + 1)} disabled={page === pageCount}>
             <ChevronRight className="w-4 h-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setPage(pageCount)}
-            disabled={page === pageCount}
-          >
+          <Button variant="ghost" size="icon" onClick={() => goToPage(pageCount)} disabled={page === pageCount}>
             <ChevronsRight className="w-4 h-4" />
           </Button>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

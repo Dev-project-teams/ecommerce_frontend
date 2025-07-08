@@ -1,4 +1,18 @@
 "use client";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
+import Pagination from "@/components/ui/pagination";
+import { MoreHorizontal } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
     Table,
@@ -6,38 +20,30 @@ import {
     TableCell,
     TableHead,
     TableHeader,
-    TableRow,
+    TableRow
 } from "@/components/ui/table";
-import { Card, CardContent } from "@/components/ui/card";
-import Image from "next/image";
-import Pagination from "@/components/ui/pagination";
-import { useState } from "react";
-import { MoreHorizontal } from "lucide-react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 
-// Sample products
+export default function ProductTable({ products = [], total, currentPage, perPage }) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-export default function ProductTable({ products = [] }) {
-    const [page, setPage] = useState(1);
-    const [perPage, setPerPage] = useState(5);
+    const pageCount = Math.ceil(total / perPage);
 
-    const pageCount = Math.ceil(products.length / perPage);
-
-    const paginatedProducts = products.slice(
-        (page - 1) * perPage,
-        page * perPage
-    );
-
-    const handlePerPageChange = (value) => {
-        setPerPage(Number(value));
-        setPage(1);
+    const updateURLParams = (key, value) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set(key, value.toString());
+        if (key !== "page") params.set("page", "1"); // reset to page 1 on perPage change
+        router.push(`?${params.toString()}`);
     };
+
+    const handlePageChange = (page) => {
+        updateURLParams("page", page);
+    };
+
+    const handlePerPageChange = (perPageValue) => {
+        updateURLParams("perPage", perPageValue);
+    };
+
 
     return (
         <Card className="p-4">
@@ -52,18 +58,18 @@ export default function ProductTable({ products = [] }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginatedProducts.map((product) => (
+                        {products.map((product) => (
                             <TableRow key={product.id}>
                                 <TableCell>
                                     <Image
-                                        src={product.image}
-                                        alt={product.name}
+                                        src={product.thumbnail}
+                                        alt={product.title}
                                         width={50}
                                         height={50}
                                         className="rounded"
                                     />
                                 </TableCell>
-                                <TableCell>{product.name}</TableCell>
+                                <TableCell>{product.title}</TableCell>
                                 <TableCell>₹{product.price}</TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu>
@@ -85,11 +91,11 @@ export default function ProductTable({ products = [] }) {
                 </Table>
 
                 <Pagination
-                    handlePerPageChange={handlePerPageChange}
-                    page={page}
+                    page={currentPage}
                     pageCount={pageCount}
                     perPage={perPage}
-                    setPage={setPage}
+                    onPageChange={handlePageChange}
+                    onPerPageChange={handlePerPageChange}
                 />
             </CardContent>
         </Card>
