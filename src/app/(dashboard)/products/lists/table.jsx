@@ -23,7 +23,15 @@ import {
     TableRow
 } from "@/components/ui/table";
 
-export default function ProductTable({ products = [], total, currentPage, perPage }) {
+export default function ProductTable({
+    products = [],
+    total,
+    currentPage,
+    perPage,
+    sortBy,
+    order,
+    search
+}) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -32,28 +40,45 @@ export default function ProductTable({ products = [], total, currentPage, perPag
     const updateURLParams = (key, value) => {
         const params = new URLSearchParams(searchParams.toString());
         params.set(key, value.toString());
-        if (key !== "page") params.set("page", "1"); // reset to page 1 on perPage change
+        if (key !== "page") params.set("page", "1");
         router.push(`?${params.toString()}`);
     };
 
-    const handlePageChange = (page) => {
-        updateURLParams("page", page);
+    const handlePageChange = (page) => updateURLParams("page", page);
+    const handlePerPageChange = (val) => updateURLParams("perPage", val);
+    const handleSort = (field) => {
+        const newOrder = sortBy === field && order === "asc" ? "desc" : "asc";
+        updateURLParams("sortBy", field);
+        updateURLParams("order", newOrder);
     };
 
-    const handlePerPageChange = (perPageValue) => {
-        updateURLParams("perPage", perPageValue);
+    const handleSearchChange = (e) => {
+        updateURLParams("search", e.target.value);
     };
-
 
     return (
         <Card className="p-4">
-            <CardContent>
+            <CardContent className="space-y-4">
+                <div className="flex justify-between items-center mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search by name..."
+                        defaultValue={search}
+                        onChange={handleSearchChange}
+                        className="border p-2 rounded w-64"
+                    />
+                </div>
+
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[90px]">Image</TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Price (₹)</TableHead>
+                            <TableHead onClick={() => handleSort("title")} className="cursor-pointer">
+                                Name {sortBy === "title" ? (order === "asc" ? "↑" : "↓") : ""}
+                            </TableHead>
+                            <TableHead onClick={() => handleSort("price")} className="cursor-pointer">
+                                Price (₹) {sortBy === "price" ? (order === "asc" ? "↑" : "↓") : ""}
+                            </TableHead>
                             <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -101,3 +126,5 @@ export default function ProductTable({ products = [], total, currentPage, perPag
         </Card>
     );
 }
+
+
