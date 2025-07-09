@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SidebarProvider } from "@/components/sidebar-context";
 import { Sidebar } from "@/components/ui/app-sidebar";
 import { Header } from "@/components/ui/app-header";
+import TanStackProviders from "@/components/tanstack-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,10 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+
+          <TanStackProviders>
+            {children}
+          </TanStackProviders>
 
         </ThemeProvider>
       </body>
