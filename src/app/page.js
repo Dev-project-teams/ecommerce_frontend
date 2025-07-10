@@ -1,14 +1,12 @@
 
-"use client"
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
+// app/page.jsx
+import StorefrontPage from "./(storefront)/page";
+import StorefrontLayout from "@/components/layouts/storefront";
 
 export default function Home() {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push("/dashboard")
-  }, [router])
-
-  return null 
+  return (
+    <StorefrontLayout>
+      <StorefrontPage />
+    </StorefrontLayout>
+  );
 }

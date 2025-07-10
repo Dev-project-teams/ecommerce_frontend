@@ -32,21 +32,21 @@ const sidebarItems = [
   {
     label: "Dashboard",
     icon: <LayoutDashboard size={18} />,
-    href: "/dashboard",
+    href: "/admin/dashboard",
   },
   {
     label: "Products",
     icon: <Shirt size={18} />,
     children: [
-      { label: "Lists", href: "/products/lists" },
-      { label: "Create", href: "/products/create" },
-      { label: "Grid", href: "/products/grid" },
+      { label: "Lists", href: "/admin/products/lists" },
+      { label: "Create", href: "/admin/products/create" },
+      { label: "Grid", href: "/admin/products/grid" },
       // {
       //   label: "Categories",
       //   icon: <Clipboard size={18} />,
       //   children: [
-      //      { label: "Lists", href: "/products/category/lists" },
-      //      { label: "Create", href: "/products/category/Create" },
+      //      { label: "Lists", href: "/admin/products/category/lists" },
+      //      { label: "Create", href: "/admin/products/category/Create" },
       //   ],
       // },
     ],
@@ -55,38 +55,38 @@ const sidebarItems = [
     label: "Categories",
     icon: <Clipboard size={18} />,
     children: [
-      { label: "Lists", href: "/category/lists" },
-      { label: "Create", href: "/category/create" },
+      { label: "Lists", href: "/admin/category/lists" },
+      { label: "Create", href: "/admin/category/create" },
     ],
   },
   {
     label: "Orders",
     icon: <ShoppingBasket size={18} />,
     children: [
-      { label: "Lists", href: "/orders/lists" },
+      { label: "Lists", href: "/admin/orders/lists" },
     ],
   },
   {
     label: "Inventory",
     icon: <Package size={18} />,
     children: [
-      { label: "Warehouse", href: "/inventory/lists" },
+      { label: "Warehouse", href: "/admin/inventory/lists" },
     ],
   },
   {
     label: "Vendors",
     icon: <IdCard size={18} />,
     children: [
-      { label: "Lists", href: "/products/lists" },
-      { label: "Create", href: "/products/create" },
+      { label: "Lists", href: "/admin/products/lists" },
+      { label: "Create", href: "/admin/products/create" },
     ],
   },
   {
     label: "Settings",
     icon: <Settings size={18} />,
     children: [
-      { label: "General", href: "/settings/general" },
-      { label: "Team", href: "/settings/team" },
+      { label: "General", href: "/admin/settings/general" },
+      { label: "Team", href: "/admin/settings/team" },
     ],
   },
 
