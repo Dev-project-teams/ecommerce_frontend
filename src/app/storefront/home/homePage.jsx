@@ -4,7 +4,7 @@ import BannerCarousel from './banner'
 const HomePage = () => {
     return (
         <div>
-            {/* <BannerCarousel /> */}
+            <BannerCarousel />
         </div>
     )
 }
