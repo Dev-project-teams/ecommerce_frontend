@@ -1,9 +1,9 @@
 import React from 'react'
 import HomePage from './home/homePage'
 
-const StoreFrontHomePage = () => {
+export default function StoreFrontHomePage() {
   return (
     <HomePage />
   )
 }
-export default StoreFrontHomePage
+
