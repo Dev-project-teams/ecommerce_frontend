@@ -1,12 +1,10 @@
 import React from 'react'
 import BannerCarousel from './banner'
 
-const HomePage = () => {
+export default function StoreFrontHomePage() {
     return (
         <div>
-            <BannerCarousel />
+           <BannerCarousel />
         </div>
     )
 }
-
-export default HomePage

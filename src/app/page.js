@@ -1,11 +1,11 @@
 
-import StorefrontPage from "./(storefront)/page";
 import StorefrontLayout from "@/components/layouts/storefront";
+import StoreFrontHomePage from "@/components/ui/(storefront)/home/home";
 
 export default function Home() {
   return (
     <StorefrontLayout>
-      <StorefrontPage />
+      <StoreFrontHomePage />
     </StorefrontLayout>
   );
 }
