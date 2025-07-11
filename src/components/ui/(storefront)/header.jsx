@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, ShoppingCart, User } from "lucide-react";
+import { ChevronRight, Menu, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -10,15 +10,22 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Card } from "../card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../accordion";
+import { useTheme } from "next-themes";
 
 const StoreFrontHeader = () => {
     const [open, setOpen] = useState(false);
-
+    const { setTheme } = useTheme()
     return (
-        <header className="w-full border-b bg-white shadow-sm sticky top-0 z-50">
-            <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <Card className="w-full border-b rounded-none p-4  shadow-sm sticky top-0 z-50">
+            <div className="container mx-auto px-4 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="text-xl font-bold">
                     MyShop
@@ -39,12 +46,12 @@ const StoreFrontHeader = () => {
                             3
                         </span>
                     </Link>
-                    
+
 
                     {/* Profile Dropdown */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="p-0">
+                            <Button variant="ghost" className="p-0 user_btn" >
                                 <User className="w-5 h-5" />
                             </Button>
                         </DropdownMenuTrigger>
@@ -55,9 +62,37 @@ const StoreFrontHeader = () => {
                             <DropdownMenuItem>
                                 <Link href="/orders">Orders</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link href="/settings">Settings</Link>
-                            </DropdownMenuItem>
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="account-settings">
+                                    <AccordionTrigger className="text-sm px-3 py-2 rounded">
+                                        Account Settings
+                                    </AccordionTrigger>
+                                    <AccordionContent className="pl-3">
+                                        <Link href="/settings/account" className="block px-1  py-1 text-sm rounded hover:text-primary transition">
+                                            Account
+                                        </Link>
+                                        <Link href="/settings/security" className="block px-1  py-1 text-sm rounded hover:text-primary transition">
+                                            Security
+                                        </Link>
+                                        <Link href="/settings/billing" className="block px-1  py-1 text-sm rounded hover:text-primary transition">
+                                            Billing
+                                        </Link>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                            <Accordion type="single" collapsible className="w-full">
+                                <AccordionItem value="theme">
+                                    <AccordionTrigger className="text-sm px-3 py-2 rounded">
+                                        Theme
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-3 flex flex-col items-start gap-2">
+                                        <button className="block px-1  py-1 text-sm rounded hover:bg-primary w-full text-start" onClick={() => setTheme("light")}> Light</button>
+                                        <button className="block px-1  py-1 text-sm rounded hover:bg-primary w-full text-start" onClick={() => setTheme("dark")}> Dark</button>
+                                        <button className="block px-1  py-1 text-sm rounded hover:bg-primary w-full text-start" onClick={() => setTheme("system")}> System</button>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem>
                                 <button>Logout</button>
                             </DropdownMenuItem>
@@ -97,7 +132,7 @@ const StoreFrontHeader = () => {
                     </SheetContent>
                 </Sheet>
             </div>
-        </header>
+        </Card>
     );
 };
 
