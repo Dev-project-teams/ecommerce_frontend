@@ -39,6 +39,7 @@ const StoreFrontHeader = () => {
                             3
                         </span>
                     </Link>
+                    
 
                     {/* Profile Dropdown */}
                     <DropdownMenu>
