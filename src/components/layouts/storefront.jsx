@@ -1,3 +1,4 @@
+import StoreFrontFooter from "../ui/(storefront)/footer";
 import StoreFrontHeader from "../ui/(storefront)/header";
 
 export default function StorefrontLayout({ children }) {
@@ -6,6 +7,7 @@ export default function StorefrontLayout({ children }) {
             <div className="flex flex-col flex-1">
                 <StoreFrontHeader />
                 <main className="p-4">{children}</main>
+                <StoreFrontFooter/>
             </div>
         </div>
         
